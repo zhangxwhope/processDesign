@@ -41,7 +41,7 @@ export default {
       return this.$store.state.design.process;
     }
   },
-  render(h, ctx) {
+  render(h) {
     console.log("渲染流程树")
     this.nodeMap.clear()
     let processTrees = this.getDomTree(h, this.dom)

@@ -55,7 +55,7 @@ export default {
   },
   computed:{
     selectedNode(){
-      this.$store.state.selectedNode
+      return this.$store.state.selectedNode
     }
   },
   methods: {
