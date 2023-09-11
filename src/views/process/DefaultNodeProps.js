@@ -1,3 +1,53 @@
+// 请求节点默认属性
+export const API_PROPS = {
+
+}
+
+// 日期组件默认属性
+export const TIMER_PROPS = {
+  
+}
+
+// 动态脚本默认属性
+export const DYNAMIC_PROPS = {
+  
+}
+
+// 字符串组件默认属性
+export const STRING_PROPS = {
+  
+}
+
+// xml组件默认属性
+export const XML_PROPS = {
+  
+}
+
+// json默认属性
+export const JSON_PROPS = {
+  
+}
+
+// 分支组件默认属性
+export const CONCURRENTS_PROPS = {
+  
+}
+
+// 变量组件默认属性
+export const VARIABLE_PROPS = {
+  
+}
+
+// 循环组件默认属性
+export const LOOP_PROPS = {
+  
+}
+
+// 数据转换默认属性
+export const CONVERSION_PROPS = {
+  
+}
+
 //审批节点默认属性
 export const APPROVAL_PROPS = {
   assignedType: "ASSIGN_USER",
@@ -107,5 +157,7 @@ export const DELAY_PROPS = {
 }
 
 export default {
+  API_PROPS, TIMER_PROPS, DYNAMIC_PROPS, STRING_PROPS, XML_PROPS, JSON_PROPS, CONCURRENTS_PROPS,
+  VARIABLE_PROPS, LOOP_PROPS, CONVERSION_PROPS,
   APPROVAL_PROPS, CC_PROPS, DELAY_PROPS, CONDITION_PROPS, ROOT_PROPS, TRIGGER_PROPS
 }

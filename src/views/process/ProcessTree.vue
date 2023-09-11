@@ -10,11 +10,24 @@ import Empty from '@/views/process/node/nodes/EmptyNode.vue'
 import Root from '@/views/process/node/nodes/RootNode.vue'
 import Node from '@/views/process/node/nodes/Node.vue'
 
+import Api from '@/views/process/node/nodes/APINode.vue'
+import Timer from '@/views/process/node/nodes/TimerNode.vue'
+import Dynamic from '@/views/process/node/nodes/DynamicNode.vue'
+import String from '@/views/process/node/nodes/StringNode.vue'
+import Xml from '@/views/process/node/nodes/XmlNode.vue'
+import Json from '@/views/process/node/nodes/JsonNode.vue'
+import Variable from '@/views/process/node/nodes/VariableNode.vue'
+import Loop from '@/views/process/node/nodes/LoopNode.vue'
+import Conversion from '@/views/process/node/nodes/ConversionNode.vue'
+
 import DefaultProps from "./DefaultNodeProps"
 
 export default {
   name: "ProcessTree",
-  components: {Node, Root, Approval, Cc, Trigger, Concurrent, Condition, Delay, Empty},
+  components: {
+    Api, Timer, Dynamic, String, Xml, Json, Variable, Loop, Conversion,
+    Node, Root, Approval, Cc, Trigger, Concurrent, Condition, Delay, Empty
+  },
   data() {
     return {
       valid: true
@@ -33,8 +46,8 @@ export default {
     this.nodeMap.clear()
     let processTrees = this.getDomTree(h, this.dom)
     //插入末端节点
-    processTrees.push(h('div', {style:{'text-align': 'center'}}, [
-      h('div', {class:{'process-end': true}, domProps: {innerHTML:'流程结束'}})
+    processTrees.push(h('div', {style:{'display': 'flex', 'justify-content': 'center'}}, [
+      h('div', {class:{'process-end': true}, domProps: {innerHTML:'结束'}})
     ]))
     return h('div', {class:{'_root': true}, ref:'_root'}, processTrees)
   },
@@ -143,7 +156,12 @@ export default {
     //判断是否为主要业务节点
     isPrimaryNode(node){
       return node &&
-          (node.type === 'ROOT' || node.type === 'APPROVAL'
+          (node.type === 'API' || node.type === 'TIMER'
+          || node.type === 'DYNAMIC' || node.type === 'STRING'
+          || node.type === 'XML' || node.type === 'JSON'
+          || node.type === 'VARIABLE' || node.type === 'LOOP'
+          || node.type === 'CONVERSION'
+          ||  node.type === 'ROOT' || node.type === 'APPROVAL'
           || node.type === 'CC' || node.type === 'DELAY'
               || node.type === 'TRIGGER');
     },
@@ -185,6 +203,16 @@ export default {
         type: type
       }
       switch (type){
+        case 'API': this.insertAPI(parentNode); break;
+        case 'TIMER': this.insertDate(parentNode); break;
+        case 'DYNAMIC': this.insertDynamicScript(parentNode); break;
+        case 'STRING': this.insertString(parentNode); break;
+        case 'XML': this.insertXml(parentNode); break;
+        case 'JSON': this.insertJson(parentNode); break;
+        case 'VARIABLE': this.insertVariable(parentNode); break;
+        case 'LOOP': this.insertLoop(parentNode); break;
+        case 'CONVERSION': this.insertDataConversion(parentNode); break;
+
         case 'APPROVAL': this.insertApprovalNode(parentNode, afterNode); break;
         case 'CC': this.insertCcNode(parentNode); break;
         case 'DELAY': this.insertDelayNode(parentNode); break;
@@ -201,6 +229,43 @@ export default {
       }
       this.$forceUpdate()
     },
+    insertAPI(parentNode) {
+      this.$set(parentNode.children, "name", "请求节点")
+      this.$set(parentNode.children, "props", this.$deepCopy(DefaultProps.API_PROPS))
+    },
+    insertDate(parentNode) {
+      this.$set(parentNode.children, "name", "日期组件")
+      this.$set(parentNode.children, "props", this.$deepCopy(DefaultProps.TIMER_PROPS))
+    },
+    insertDynamicScript(parentNode) {
+      this.$set(parentNode.children, "name", "动态脚本")
+      this.$set(parentNode.children, "props", this.$deepCopy(DefaultProps.DYNAMIC_PROPS))
+    },
+    insertString(parentNode) {
+      this.$set(parentNode.children, "name", "字符串组件")
+      this.$set(parentNode.children, "props", this.$deepCopy(DefaultProps.STRING_PROPS))
+    },
+    insertXml(parentNode) {
+      this.$set(parentNode.children, "name", "xml组件")
+      this.$set(parentNode.children, "props", this.$deepCopy(DefaultProps.XML_PROPS))
+    },
+    insertJson(parentNode) {
+      this.$set(parentNode.children, "name", "json组件")
+      this.$set(parentNode.children, "props", this.$deepCopy(DefaultProps.JSON_PROPS))
+    },
+    insertVariable(parentNode) {
+      this.$set(parentNode.children, "name", "变量组件")
+      this.$set(parentNode.children, "props", this.$deepCopy(DefaultProps.VARIABLE_PROPS))
+    },
+    insertLoop(parentNode) {
+      this.$set(parentNode.children, "name", "循环组件")
+      this.$set(parentNode.children, "props", this.$deepCopy(DefaultProps.LOOP_PROPS))
+    },
+    insertDataConversion(parentNode) {
+      this.$set(parentNode.children, "name", "数据转换")
+      this.$set(parentNode.children, "props", this.$deepCopy(DefaultProps.CONCURRENTS_PROPS))
+    },
+    
     insertApprovalNode(parentNode){
       this.$set(parentNode.children, "name", "审批人")
       this.$set(parentNode.children, "props", this.$deepCopy(DefaultProps.APPROVAL_PROPS))
@@ -393,15 +458,22 @@ export default {
  margin: 0 auto;
 }
 .process-end{
-  width: 60px;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  border-radius: 15px;
-  padding: 5px 10px;
-  font-size: small;
-  color: #747474;
-  background-color: #f2f2f2;
-  box-shadow: 0 0 10px 0 #bcbcbc;
+  // width: 60px;
+  // margin: 0 auto;
+  // margin-bottom: 20px;
+  // border-radius: 15px;
+  // padding: 5px 10px;
+  // font-size: small;
+  // color: #747474;
+  // background-color: #f2f2f2;
+  // box-shadow: 0 0 10px 0 #bcbcbc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid red;
 }
 .primary-node{
   display: flex;
