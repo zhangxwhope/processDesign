@@ -48,6 +48,64 @@ export const CONVERSION_PROPS = {
   
 }
 
+export const COMPONENT_ITEMS = [
+  {
+    name: '请求节点',
+    icon: 'el-icon-message',
+    color: '#ff943e'
+  },
+  {
+    name: '日期组件',
+    icon: 'el-icon-date',
+    color: '#3296fa'
+  },
+  {
+    name: '动态脚本',
+    icon: 'el-icon-c-scale-to-original',
+    color: '#15bc83'
+  },
+  {
+    name: '字符串组件',
+    icon: 'el-icon-help',
+    color: '#718dff'
+  },
+  {
+    name: 'xml组件',
+    icon: 'el-icon-folder-delete',
+    color: '#f25643'
+  },
+  {
+    name: 'json组件',
+    icon: 'el-icon-document',
+    color: '#c9bc0c'
+  },
+  {
+    name: '条件分支',
+    icon: 'el-icon-share',
+    color: '#3c2fe3'
+  },
+  {
+    name: '并行分支',
+    icon: 'el-icon-share',
+    color: '#3c2fe3'
+  },
+  {
+    name: '变量组件',
+    icon: 'el-icon-position',
+    color: '#f314e0'
+  },
+  {
+    name: '循环组件',
+    icon: 'el-icon-refresh',
+    color: '#9896a7'
+  },
+  {
+    name: '数据转换',
+    icon: 'el-icon-s-operation',
+    color: '#85d707'
+  }
+]
+
 //审批节点默认属性
 export const APPROVAL_PROPS = {
   assignedType: "ASSIGN_USER",
@@ -158,6 +216,6 @@ export const DELAY_PROPS = {
 
 export default {
   API_PROPS, TIMER_PROPS, DYNAMIC_PROPS, STRING_PROPS, XML_PROPS, JSON_PROPS, CONCURRENTS_PROPS,
-  VARIABLE_PROPS, LOOP_PROPS, CONVERSION_PROPS,
+  VARIABLE_PROPS, LOOP_PROPS, CONVERSION_PROPS, COMPONENT_ITEMS,
   APPROVAL_PROPS, CC_PROPS, DELAY_PROPS, CONDITION_PROPS, ROOT_PROPS, TRIGGER_PROPS
 }
