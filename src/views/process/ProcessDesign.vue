@@ -7,6 +7,7 @@
       <el-button @click="validate">校验流程</el-button>
     </div>
     <div class="design" :style="'transform: scale('+ scale / 100 +');'">
+      <process-side ref="process-side" />
       <process-tree ref="process-tree" @selectedNode="nodeSelected"/>
     </div>
     <el-drawer :title="selectedNode.name" :visible.sync="showConfig"
@@ -29,12 +30,13 @@
 
 <script>
 import ProcessTree from './ProcessTree.vue'
+import ProcessSide from './ProcessSide.vue'
 import NodeConfig from './node/config/NodeConfig'
 //import ProcessTree from '@/views/common/process/FormComponentConfig.vue'
 
 export default {
   name: "ProcessDesign",
-  components: {ProcessTree, NodeConfig},
+  components: {ProcessTree, NodeConfig, ProcessSide},
   data() {
     return {
       scale: 100,

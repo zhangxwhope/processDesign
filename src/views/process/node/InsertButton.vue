@@ -25,9 +25,13 @@
         <i class="el-icon-document" style="color:#c9bc0c;"></i>
         <span>json组件</span>
       </div>
+      <div @click="addConditionsNode">
+        <i class="el-icon-share" style="color:#3c2fe3;"></i>
+        <span>条件分支</span>
+      </div>
       <div @click="addConcurrents">
         <i class="el-icon-share" style="color:#3c2fe3;"></i>
-        <span>分支组件</span>
+        <span>并行分支</span>
       </div>
       <div @click="addVariable">
         <i class="el-icon-position" style="color:#f314e0;"></i>
