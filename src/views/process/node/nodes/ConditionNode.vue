@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="node-footer">
-      <div class="btn">
+      <div class="btn"  @dragover="handleDragover" @drop="handleDrop">
         <insert-button @insertNode="type => $emit('insertNode', type)"></insert-button>
       </div>
     </div>
@@ -104,6 +104,15 @@ export default {
     }
   },
   methods: {
+    handleDragover(event) {
+      event.preventDefault()
+    },
+    handleDrop(event) {
+      event.preventDefault()
+      console.log("🚀 ~ file: InsertButton.vue:74 ~ handleDrop ~ event:", event)
+      this.$emit('insertNode', event.dataTransfer.getData("text/plain"))
+    },
+    
     getNumberConditionContent(subCondition) {
       switch (subCondition.compare) {
         case 'IN':

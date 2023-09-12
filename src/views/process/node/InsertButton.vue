@@ -1,49 +1,14 @@
 <template>
   <el-popover placement="bottom-start" title="添加流程节点" width="350" trigger="click">
     <div class="node-select">
-      <div @click="addAPI">
-        <i class="el-icon-message" style="color:rgb(255, 148, 62);"></i>
-        <span>请求节点</span>
-      </div>
-      <div @click="addDate">
-        <i class="el-icon-date" style="color:rgb(50, 150, 250);"></i>
-        <span>日期组件</span>
-      </div>
-      <div @click="addDynamicScript">
-        <i class="el-icon-c-scale-to-original" style="color:rgb(21, 188, 131);"></i>
-        <span>动态脚本</span>
-      </div>
-      <div @click="addString">
-        <i class="el-icon-help" style="color:#718dff;"></i>
-        <span>字符串组件</span>
-      </div>
-      <div @click="addXml">
-        <i class="el-icon-folder-delete" style="color:#f25643;"></i>
-        <span>xml组件</span>
-      </div>
-      <div @click="addJson">
-        <i class="el-icon-document" style="color:#c9bc0c;"></i>
-        <span>json组件</span>
-      </div>
-      <div @click="addConditionsNode">
-        <i class="el-icon-share" style="color:#3c2fe3;"></i>
-        <span>条件分支</span>
-      </div>
-      <div @click="addConcurrents">
-        <i class="el-icon-share" style="color:#3c2fe3;"></i>
-        <span>并行分支</span>
-      </div>
-      <div @click="addVariable">
-        <i class="el-icon-position" style="color:#f314e0;"></i>
-        <span>变量组件</span>
-      </div>
-      <div @click="addLoop">
-        <i class="el-icon-refresh" style="color:#9896a7;"></i>
-        <span>循环组件</span>
-      </div>
-      <div @click="addDataConversion">
-        <i class="el-icon-s-operation" style="color:#85d707;"></i>
-        <span>数据转换</span>
+      <div
+        v-for="(item, index) in componentItems"
+        :key="index"
+        class="select-item"
+        @click="handleClick(item.type)"
+      >
+        <i :class="item.icon" :style="`color: ${item.color}`"></i>
+        <span>{{ item.name }}</span>
       </div>
     </div>
     <el-button icon="el-icon-plus" slot="reference" type="primary" size="small" circle></el-button>
@@ -51,11 +16,15 @@
 </template>
 
 <script>
+import DefaultProps from "../DefaultNodeProps"
+
 export default {
   name: "InsertButton",
   components: {},
   data() {
-    return {}
+    return {
+      componentItems: DefaultProps.COMPONENT_ITEMS
+    }
   },
   computed:{
     selectedNode(){
@@ -63,6 +32,9 @@ export default {
     }
   },
   methods: {
+    handleClick(type) {
+      this.$emit('insertNode', type)
+    },
     addAPI() {
       this.$emit('insertNode', "API")
     },

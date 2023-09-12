@@ -5,6 +5,8 @@
         v-for="(item, index) in componentItems"
         :key="index"
         class="select-item"
+        draggable="true"
+        @dragstart="event => handleDragstart(event, item.type)"
       >
         <i :class="item.icon" :style="`color: ${item.color}`"></i>
         <span>{{ item.name }}</span>
@@ -21,6 +23,12 @@ export default {
   data() {
     return {
       componentItems: DefaultProps.COMPONENT_ITEMS
+    }
+  },
+  methods: {
+    handleDragstart(event, type) {
+      console.log("🚀 ~ file: ProcessSide.vue:30 ~ handleDragstart ~ event:", event)
+      event.dataTransfer.setData("text/plain", type)
     }
   }
 }

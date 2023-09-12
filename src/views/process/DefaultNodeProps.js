@@ -52,57 +52,68 @@ export const COMPONENT_ITEMS = [
   {
     name: '请求节点',
     icon: 'el-icon-message',
-    color: '#ff943e'
+    color: '#ff943e',
+    type: 'API'
   },
   {
     name: '日期组件',
     icon: 'el-icon-date',
-    color: '#3296fa'
+    color: '#3296fa',
+    type: 'TIMER'
   },
   {
     name: '动态脚本',
     icon: 'el-icon-c-scale-to-original',
-    color: '#15bc83'
+    color: '#15bc83',
+    type: 'DYNAMIC'
   },
   {
     name: '字符串组件',
     icon: 'el-icon-help',
-    color: '#718dff'
+    color: '#718dff',
+    type: 'STRING'
   },
   {
     name: 'xml组件',
     icon: 'el-icon-folder-delete',
-    color: '#f25643'
+    color: '#f25643',
+    type: 'XML'
   },
   {
     name: 'json组件',
     icon: 'el-icon-document',
-    color: '#c9bc0c'
+    color: '#c9bc0c',
+    type: 'JSON'
   },
   {
     name: '条件分支',
     icon: 'el-icon-share',
-    color: '#3c2fe3'
+    color: '#3c2fe3',
+    type: 'CONDITIONS'
   },
   {
     name: '并行分支',
     icon: 'el-icon-share',
-    color: '#3c2fe3'
+    color: '#3c2fe3',
+    type: 'CONCURRENTS'
   },
   {
     name: '变量组件',
     icon: 'el-icon-position',
-    color: '#f314e0'
+    color: '#f314e0',
+    type: 'VARIABLE'
   },
   {
     name: '循环组件',
     icon: 'el-icon-refresh',
-    color: '#9896a7'
+    color: '#9896a7',
+    type: 'LOOP'
   },
   {
     name: '数据转换',
     icon: 'el-icon-s-operation',
-    color: '#85d707'
+    color: '#85d707',
+    type: 'CONVERSION'
   }
 ]
 
