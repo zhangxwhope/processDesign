@@ -14,6 +14,12 @@
 
 <script>
 import Variable from './VariableNodeConfig.vue'
+import Api from './APINodeConfig.vue'
+import Timer from './TimerNodeConfig.vue'
+import Dynamic from './DynamicNodeConfig.vue'
+import String from './StringNodeConfig.vue'
+import Xml from './XmlNodeConfig.vue'
+import Json from './JsonNodeConfig.vue'
 
 import Approval from './ApprovalNodeConfig.vue'
 import Condition from './ConditionNodeConfig.vue'
@@ -27,6 +33,12 @@ export default {
   name: "NodeConfig",
   components: {
     Variable,
+    Api,
+    Timer,
+    Dynamic,
+    String,
+    Xml,
+    Json,
     
     Approval,
     Condition,

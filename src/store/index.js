@@ -17,7 +17,7 @@ export default new Vuex.Store({
         parentId: "7d89sf7d8sasf", //父级节点ID，用来向上搜索
         //节点类型，ROOT(发起人，根节点)、APPROVAL(审批)、CC(抄送)、CONDITION(条件)、CONCURRENT（并行节点）、DELAY(延时节点)、EMPTY(空节点，占位)
         type:"ROOT",
-        name: "发起人",
+        name: "开始",
         props:{
           assignedUser:[]
         }, //节点属性，见下方props说明
