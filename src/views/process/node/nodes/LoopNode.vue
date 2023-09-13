@@ -1,11 +1,13 @@
 <template>
   <div class="node">
-    <i 
-      v-if="config.showFooter !== undefined"
-      class="el-icon-close loop-del-btn"
-      title="删除循环组件" 
-      @click.stop="$emit('delNode', true)"
-    ></i>
+    <div class="node-info"  v-if="config.showFooter !== undefined">
+      <span>循环组件</span>
+      <i 
+        class="el-icon-close loop-del-btn"
+        title="删除循环组件" 
+        @click.stop="$emit('delNode', true)"
+      ></i>
+    </div>
     <div v-if="config.showFooter === undefined || config.showFooter" class="node-footer">
       <div class="btn"  @dragover="handleDragover" @drop="handleDrop">
         <insert-button @insertNode="type => $emit('insertNode', type)"></insert-button>
@@ -229,11 +231,14 @@ export default {
       background-color: #CACACA;
     }
   }
-
-  .loop-del-btn{
+  
+  .node-info {
     position: absolute;
     top: 0;
     left: 50%;
+    padding: 2px 4px;
+  }
+  .loop-del-btn{
     color: #888888;
     padding: 0 3px;
     cursor: pointer;

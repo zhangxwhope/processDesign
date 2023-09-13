@@ -575,7 +575,7 @@ export default {
 .branch-node{
   &:hover{
     .loop-del-btn{
-      display: block;
+      display: inline-block;
     }
   }
 }
