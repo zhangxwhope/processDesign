@@ -391,7 +391,7 @@ export default {
             //获取条件组的父节点
             let ppNode = this.nodeMap.get(parentNode.parentId)
             //判断唯一分支是否存在业务节点
-            if (parentNode.branchs[0].children && parentNode.branchs[0].children.id){
+            if (parentNode.branchs[0].children && parentNode.branchs[0].children.id && this.isBranchNode(parentNode)){
               //将剩下的唯一分支头部合并到主干
               ppNode.children = parentNode.branchs[0].children
               ppNode.children.parentId = ppNode.id
