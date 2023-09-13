@@ -1,11 +1,21 @@
 <template>
-  <node :title="config.name" :show-error="showError" :content="content" :error-info="errorInfo"
-        @selected="$emit('selected')" @delNode="$emit('delNode')" @insertNode="type => $emit('insertNode', type)"
-        placeholder="请设置循环" header-bgc="#9896a7" header-icon="el-icon-refresh"/>
+  <div class="node">
+    <i 
+      v-if="config.showFooter !== undefined"
+      class="el-icon-close loop-del-btn"
+      title="删除循环组件" 
+      @click.stop="$emit('delNode', true)"
+    ></i>
+    <div v-if="config.showFooter === undefined || config.showFooter" class="node-footer">
+      <div class="btn"  @dragover="handleDragover" @drop="handleDrop">
+        <insert-button @insertNode="type => $emit('insertNode', type)"></insert-button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import Node from './Node'
+import InsertButton from '@/views/process/node/InsertButton.vue'
 
 export default {
   name: "LoopNode",
@@ -17,7 +27,7 @@ export default {
       }
     }
   },
-  components: {Node},
+  components: {InsertButton},
   data() {
     return {
       showError: false,
@@ -66,6 +76,15 @@ export default {
     }
   },
   methods: {
+    handleDragover(event) {
+      event.preventDefault()
+    },
+    handleDrop(event) {
+      event.preventDefault()
+      console.log("🚀 ~ file: InsertButton.vue:74 ~ handleDrop ~ event:", event)
+      this.$emit('insertNode', event.dataTransfer.getData("text/plain"))
+    },
+
     getFormItemById(id){
       return this.$store.state.design.formItems.find(item => item.id === id)
     },
@@ -121,6 +140,105 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+@import "@/assets/theme";
 
+.node{
+  padding: 30px 55px 0;
+  width: 220px;
+  .node-body{
+    overflow: hidden;
+    cursor: pointer;
+    min-height: 80px;
+    max-height: 120px;
+    position: relative;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0px 0px 5px 0px #d8d8d8;
+    &:hover{
+      .node-body-main {
+        .option{
+          display: inline-block !important;
+        }
+      }
+      box-shadow: 0px 0px 3px 0px @primary;
+    }
+  
+    .node-body-main {
+      position: absolute;
+      width: 188px;
+      left: 17px;
+      display: inline-block;
+
+      .node-body-main-header{
+        padding: 10px 0px 5px;
+        font-size: xx-small;
+        position: relative;
+        .title{
+          color: #718dff;
+        }
+        .option{
+          position: absolute;
+          right: 0;
+          display: none;
+          font-size: medium;
+          i{
+            color: #888888;
+            padding: 0 3px;
+          }
+        }
+      }
+      .node-body-main-content {
+        padding: 6px;
+        color: #656363;
+        font-size: 14px;
+
+        i {
+          position: absolute;
+          top: 55%;
+          right: 10px;
+          font-size: medium;
+        }
+      }
+    }
+  }
+
+  .node-footer{
+    position: relative;
+    .btn{
+      width: 100%;
+      display: flex;
+      height: 70px;
+      padding: 20px 0 32px;
+      justify-content: center;
+    }
+    /deep/ .el-button{
+      height: 32px;
+    }
+    &::before{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      margin: auto;
+      width: 2px;
+      height: 100%;
+      background-color: #CACACA;
+    }
+  }
+
+  .loop-del-btn{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    color: #888888;
+    padding: 0 3px;
+    cursor: pointer;
+    z-index: 2;
+    display: none;
+  }
+}
 </style>

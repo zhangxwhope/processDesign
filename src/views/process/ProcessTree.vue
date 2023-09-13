@@ -59,7 +59,7 @@ export default {
         let childDoms = this.getDomTree(h, node.children)
         this.decodeAppendDom(h, node, childDoms)
         return [h('div', {'class':{'primary-node': true}}, childDoms)];
-      }else if (this.isBranchNode(node)){
+      }else if (this.isBranchNode(node) || this.isLoopNode(node)){
         let index = 0;
         //遍历分支节点，包含并行及条件节点
         let branchItems = node.branchs.map(branchNode => {
@@ -74,7 +74,7 @@ export default {
           return h('div', {'class':{'branch-node-item': true}}, childDoms);
         })
         //插入添加分支/条件的按钮
-        branchItems.unshift(h('div',{'class':{'add-branch-btn': true}}, [
+        this.isBranchNode(node) && branchItems.unshift(h('div',{'class':{'add-branch-btn': true}}, [
           h('el-button', {
            'class':{'add-branch-btn-el': true},
             props: {size: 'small', round: true},
@@ -82,6 +82,7 @@ export default {
             domProps: {innerHTML: `添加${this.isConditionNode(node)?'条件':'分支'}`},
           }, [])
         ]));
+
         let bchDom = [h('div', {'class':{'branch-node': true}}, branchItems)]
         //继续遍历分支后的节点
         let afterChildDoms = this.getDomTree(h, node.children)
@@ -106,7 +107,7 @@ export default {
         //定义事件，插入节点，删除节点，选中节点，复制/移动
         on:{
           insertNode: type => this.insertNode(type, node),
-          delNode: () => this.delNode(node),
+          delNode: (isDelLoop = false) => this.delNode(node, isDelLoop),
           selected: () => this.selectNode(node),
           copy:() => this.copyBranch(node),
           leftMove: () => this.branchMove(node, -1),
@@ -159,7 +160,7 @@ export default {
           (node.type === 'API' || node.type === 'TIMER'
           || node.type === 'DYNAMIC' || node.type === 'STRING'
           || node.type === 'XML' || node.type === 'JSON'
-          || node.type === 'VARIABLE' || node.type === 'LOOP'
+          || node.type === 'VARIABLE'
           || node.type === 'CONVERSION'
           ||  node.type === 'ROOT' || node.type === 'APPROVAL'
           || node.type === 'CC' || node.type === 'DELAY'
@@ -167,6 +168,9 @@ export default {
     },
     isBranchNode(node){
       return node && (node.type === 'CONDITIONS' || node.type === 'CONCURRENTS');
+    },
+    isLoopNode(node) {
+      return node && node.type === 'LOOP'
     },
     isEmptyNode(node){
       return node && (node.type === 'EMPTY')
@@ -222,7 +226,7 @@ export default {
         default: break;
       }
       //拼接后续节点
-      if (this.isBranchNode({type: type})){
+      if (this.isBranchNode({type: type}) || this.isLoopNode({type: type})){
         parentNode.children.children.children = afterNode
       }else {
         parentNode.children.children = afterNode
@@ -259,7 +263,28 @@ export default {
     },
     insertLoop(parentNode) {
       this.$set(parentNode.children, "name", "循环组件")
-      this.$set(parentNode.children, "props", this.$deepCopy(DefaultProps.LOOP_PROPS))
+      parentNode.children.children = {
+        id: this.getRandomId(),
+        parentId: parentNode.children.id,
+        type: "EMPTY"
+      }
+      this.$set(parentNode.children, "branchs", [
+        {
+          id: this.getRandomId(),
+          parentId: parentNode.children.id,
+          type: "LOOP",
+          props: {},
+          name: "分支1",
+          showFooter: false
+        },{
+          id: this.getRandomId(),
+          parentId: parentNode.children.id,
+          type: "LOOP",
+          props: {},
+          name: "分支2",
+        }
+      ])
+      this.$forceUpdate()
     },
     insertDataConversion(parentNode) {
       this.$set(parentNode.children, "name", "数据转换")
@@ -352,13 +377,13 @@ export default {
       }
     },
     //删除当前节点
-    delNode(node){
+    delNode(node, isDelLoop = false){
       console.log("删除节点", node)
       //获取该节点的父节点
       let parentNode = this.nodeMap.get(node.parentId)
       if (parentNode){
         //判断该节点的父节点是不是分支节点
-        if (this.isBranchNode(parentNode)){
+        if (this.isBranchNode(parentNode) || (this.isLoopNode(parentNode) && isDelLoop)){
           //移除该分支
           parentNode.branchs.splice(parentNode.branchs.indexOf(node), 1)
           //处理只剩1个分支的情况
@@ -481,6 +506,7 @@ export default {
   flex-direction: column;
 }
 .branch-node{
+  position: relative;
   display: flex;
   justify-content: center;
   /*border-top: 2px solid #cccccc;
@@ -542,5 +568,15 @@ export default {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+}
+</style>
+
+<style lang="less">
+.branch-node{
+  &:hover{
+    .loop-del-btn{
+      display: block;
+    }
+  }
 }
 </style>

@@ -37,7 +37,7 @@ export default {
 <style lang="less" scoped>
 .process-side{
   width: 200px;
-  height: 300px;
+  height: 500px;
   border: 1px solid #ddd;
   overflow: auto;
   .node-select{
