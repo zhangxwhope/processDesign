@@ -35,7 +35,7 @@ export const CONCURRENTS_PROPS = {
 
 // 变量组件默认属性
 export const VARIABLE_PROPS = {
-  
+  variableList: []
 }
 
 // 循环组件默认属性

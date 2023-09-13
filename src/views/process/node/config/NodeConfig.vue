@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import Variable from './VariableNodeConfig.vue'
+
 import Approval from './ApprovalNodeConfig.vue'
 import Condition from './ConditionNodeConfig.vue'
 import Delay from './DelayNodeConfig.vue'
@@ -24,6 +26,8 @@ import Root from './RootNodeConfig.vue'
 export default {
   name: "NodeConfig",
   components: {
+    Variable,
+    
     Approval,
     Condition,
     Trigger,
