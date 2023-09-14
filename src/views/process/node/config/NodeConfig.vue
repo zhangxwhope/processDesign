@@ -20,6 +20,7 @@ import Dynamic from './DynamicNodeConfig.vue'
 import String from './StringNodeConfig.vue'
 import Xml from './XmlNodeConfig.vue'
 import Json from './JsonNodeConfig.vue'
+import Concurrent from './ConcurrentNodeConfig.vue'
 
 import Approval from './ApprovalNodeConfig.vue'
 import Condition from './ConditionNodeConfig.vue'
@@ -39,6 +40,7 @@ export default {
     String,
     Xml,
     Json,
+    Concurrent,
     
     Approval,
     Condition,
