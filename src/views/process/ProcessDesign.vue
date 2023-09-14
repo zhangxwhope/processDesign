@@ -5,6 +5,7 @@
       <span>{{ scale }}%</span>
       <el-button icon="el-icon-minus" size="small" @click="scale -= 10" :disabled="scale <= 40" circle></el-button>
       <el-button @click="validate">校验流程</el-button>
+      <el-button type="primary" @click="save">保存</el-button>
     </div>
     <div class="design" :style="'transform: scale('+ scale / 100 +');'">
       <process-side ref="process-side" />
@@ -48,6 +49,9 @@ export default {
   computed:{
     selectedNode(){
       return this.$store.state.selectedNode
+    },
+    process(){
+      return this.$store.state.design.process
     }
   },
   mounted() {
@@ -60,6 +64,9 @@ export default {
     nodeSelected(node){
       console.log('配置节点', node)
       this.showConfig = true
+    },
+    save() {
+      console.log(this.process, '保存json数据')
     }
   },
   watch:{
