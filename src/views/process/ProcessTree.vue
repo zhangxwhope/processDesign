@@ -457,7 +457,7 @@ export default {
       if (this.isPrimaryNode(node)){
         this.validateNode(node)
         this.validate(node.children)
-      }else if (this.isBranchNode(node)){
+      }else if (this.isBranchNode(node) || this.isLoopNode(node)){
         //校验每个分支
         node.branchs.map(branchNode => {
           //校验条件节点
