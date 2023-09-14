@@ -227,9 +227,15 @@ export default {
       }
       //拼接后续节点
       if (this.isBranchNode({type: type}) || this.isLoopNode({type: type})){
-        parentNode.children.children.children = afterNode
+        if (afterNode && afterNode.id){
+          afterNode.parentId = parentNode.children.children.id
+        }
+        this.$set(parentNode.children.children, 'children', afterNode)
       }else {
-        parentNode.children.children = afterNode
+        if (afterNode && afterNode.id){
+          afterNode.parentId = parentNode.children.id
+        }
+        this.$set(parentNode.children, 'children', afterNode)
       }
       this.$forceUpdate()
     },
