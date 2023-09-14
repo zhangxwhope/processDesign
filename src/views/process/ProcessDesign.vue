@@ -83,7 +83,7 @@ export default {
 
 <style lang="less" scoped>
 .design {
-  margin-top: 100px;
+  margin-top: 60px;
   display: flex;
   transform-origin: 50% 0px 0px;
 }
@@ -91,7 +91,7 @@ export default {
 .scale {
   z-index: 999;
   position: fixed;
-  top: 80px;
+  top: 40px;
   right: 40px;
 
   span {

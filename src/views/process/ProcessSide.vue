@@ -37,13 +37,13 @@ export default {
 <style lang="less" scoped>
 .process-side{
   width: 200px;
-  height: 500px;
+  height: 720px;
   border: 1px solid #ddd;
   overflow: auto;
   .node-select{
     .select-item {
-      display: inline-block;
-      margin: 5px 5px;
+      display: block;
+      margin: 5px auto;
       cursor: pointer;
       padding: 10px 15px;
       border: 1px solid #F8F9F9;
