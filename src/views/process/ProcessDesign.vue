@@ -68,7 +68,7 @@ export default {
       this.showConfig = true
     },
     save() {
-      console.log(this.process, '保存json数据')
+      console.log(JSON.stringify(this.process, null, 4), '保存json数据')
     },
     saveImg(){
       html2canvas(document.getElementsByClassName('_root')[0], {
