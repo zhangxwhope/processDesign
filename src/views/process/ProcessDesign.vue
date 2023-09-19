@@ -5,7 +5,8 @@
       <span>{{ scale }}%</span>
       <el-button icon="el-icon-minus" size="small" @click="scale -= 10" :disabled="scale <= 40" circle></el-button>
       <el-button @click="validate">校验流程</el-button>
-      <el-button type="primary" @click="save">保存</el-button>
+      <el-button type="primary" @click="save">保存json</el-button>
+      <el-button type="primary" @click="saveImg">导出图片</el-button>
     </div>
     <div class="design" :style="'transform: scale('+ scale / 100 +');'">
       <process-side ref="process-side" />
@@ -34,6 +35,7 @@ import ProcessTree from './ProcessTree.vue'
 import ProcessSide from './ProcessSide.vue'
 import NodeConfig from './node/config/NodeConfig'
 //import ProcessTree from '@/views/common/process/FormComponentConfig.vue'
+import html2canvas from 'html2canvas';
 
 export default {
   name: "ProcessDesign",
@@ -67,6 +69,19 @@ export default {
     },
     save() {
       console.log(this.process, '保存json数据')
+    },
+    saveImg(){
+      html2canvas(document.getElementsByClassName('_root')[0], {
+        backgroundColor: '#f5f6f6'
+      }).then(canvas => {
+        // document.body.appendChild(canvas)
+        const imgData = canvas.toDataURL('image/png')
+        const a = document.createElement('a')
+        a.download = 'flow图片'
+        a.href = imgData
+        a.click()
+        a.remove()
+      })
     }
   },
   watch:{

@@ -1,28 +1,30 @@
 <template>
   <div class="node">
     <div class="node-body" @click="$emit('selected')">
-      <div class="node-body-left" @click.stop="$emit('leftMove')" v-if="level > 1">
-        <i class="el-icon-arrow-left"></i>
-      </div>
-      <div class="node-body-main">
-        <div class="node-body-main-header">
-          <span class="title">
-            <i class="el-icon-s-operation"></i>
-            {{config.name ? config.name:('并行任务' + level)}}
-          </span>
-          <span class="option">
-            <el-tooltip effect="dark" content="复制分支" placement="top">
-              <i class="el-icon-copy-document" @click="$emit('copy')"></i>
-            </el-tooltip>
-            <i class="el-icon-close" @click.stop="$emit('delNode')"></i>
-          </span>
+      <div class="body-wrapper">
+        <div class="node-body-left" @click.stop="$emit('leftMove')" v-if="level > 1">
+          <i class="el-icon-arrow-left"></i>
         </div>
-        <div class="node-body-main-content">
-          <span>并行任务（同时进行）</span>
+        <div class="node-body-main">
+          <div class="node-body-main-header">
+            <span class="title">
+              <i class="el-icon-s-operation"></i>
+              {{config.name ? config.name:('并行任务' + level)}}
+            </span>
+            <span class="option">
+              <el-tooltip effect="dark" content="复制分支" placement="top">
+                <i class="el-icon-copy-document" @click="$emit('copy')"></i>
+              </el-tooltip>
+              <i class="el-icon-close" @click.stop="$emit('delNode')"></i>
+            </span>
+          </div>
+          <div class="node-body-main-content">
+            <span>并行任务（同时进行）</span>
+          </div>
         </div>
-      </div>
-      <div class="node-body-right" @click.stop="$emit('rightMove')" v-if="level < size">
-        <i class="el-icon-arrow-right"></i>
+        <div class="node-body-right" @click.stop="$emit('rightMove')" v-if="level < size">
+          <i class="el-icon-arrow-right"></i>
+        </div>
       </div>
     </div>
     <div class="node-footer">
@@ -157,6 +159,11 @@ export default {
         }
       }
     }
+  }
+
+  .body-wrapper{
+    min-height: 80px;
+    background: #fff;
   }
 
   .node-footer{

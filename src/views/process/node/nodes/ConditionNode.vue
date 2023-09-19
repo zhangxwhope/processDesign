@@ -1,32 +1,34 @@
 <template>
   <div :class="{'node': true, 'node-error-state': showError}">
     <div :class="{'node-body': true, 'error': showError}">
-      <div class="node-body-left" @click="$emit('leftMove')" v-if="level > 1">
-        <i class="el-icon-arrow-left"></i>
-      </div>
-      <div class="node-body-main" @click="$emit('selected')">
-        <div class="node-body-main-header">
-          <span class="title">{{ config.name ? config.name : ('条件' + level) }}</span>
-          <span class="level">优先级{{ level }}</span>
-          <span class="option">
-            <el-tooltip effect="dark" content="复制条件" placement="top">
-              <i class="el-icon-copy-document" @click.stop="$emit('copy')"></i>
-            </el-tooltip>
-            <i class="el-icon-close" @click.stop="$emit('delNode')"></i>
-          </span>
+      <div class="body-wrapper">
+        <div class="node-body-left" @click="$emit('leftMove')" v-if="level > 1">
+          <i class="el-icon-arrow-left"></i>
         </div>
-        <div class="node-body-main-content">
-          <span class="placeholder" v-if="(content || '').trim() === ''">{{ placeholder }}</span>
-          <ellipsis hoverTip :row="4" :content="content" v-else/>
+        <div class="node-body-main" @click="$emit('selected')">
+          <div class="node-body-main-header">
+            <span class="title">{{ config.name ? config.name : ('条件' + level) }}</span>
+            <span class="level">优先级{{ level }}</span>
+            <span class="option">
+              <el-tooltip effect="dark" content="复制条件" placement="top">
+                <i class="el-icon-copy-document" @click.stop="$emit('copy')"></i>
+              </el-tooltip>
+              <i class="el-icon-close" @click.stop="$emit('delNode')"></i>
+            </span>
+          </div>
+          <div class="node-body-main-content">
+            <span class="placeholder" v-if="(content || '').trim() === ''">{{ placeholder }}</span>
+            <ellipsis hoverTip :row="4" :content="content" v-else/>
+          </div>
         </div>
-      </div>
-      <div class="node-body-right" @click="$emit('rightMove')" v-if="level < size">
-        <i class="el-icon-arrow-right"></i>
-      </div>
-      <div class="node-error" v-if="showError">
-        <el-tooltip effect="dark" :content="errorInfo" placement="top-start">
-          <i class="el-icon-warning-outline"></i>
-        </el-tooltip>
+        <div class="node-body-right" @click="$emit('rightMove')" v-if="level < size">
+          <i class="el-icon-arrow-right"></i>
+        </div>
+        <div class="node-error" v-if="showError">
+          <el-tooltip effect="dark" :content="errorInfo" placement="top-start">
+            <i class="el-icon-warning-outline"></i>
+          </el-tooltip>
+        </div>
       </div>
     </div>
     <div class="node-footer">
@@ -272,6 +274,11 @@ export default {
       font-size: 25px;
       color: #F56C6C;
     }
+  }
+
+  .body-wrapper{
+    min-height: 80px;
+    background: #fff;
   }
 
   .node-footer {

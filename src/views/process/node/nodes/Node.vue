@@ -158,6 +158,7 @@ export default {
       padding: 18px;
       color: #656363;
       font-size: 14px;
+      background: #fff;
       i{
         position: absolute;
         top: 55%;
