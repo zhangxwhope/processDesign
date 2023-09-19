@@ -8,6 +8,7 @@ import Trigger from '@/views/process/node/nodes/TriggerNode.vue'
 import Delay from '@/views/process/node/nodes/DelayNode.vue'
 import Empty from '@/views/process/node/nodes/EmptyNode.vue'
 import Root from '@/views/process/node/nodes/RootNode.vue'
+import End from '@/views/process/node/nodes/EndNode.vue'
 import Node from '@/views/process/node/nodes/Node.vue'
 
 import Api from '@/views/process/node/nodes/APINode.vue'
@@ -26,7 +27,7 @@ export default {
   name: "ProcessTree",
   components: {
     Api, Timer, Dynamic, String, Xml, Json, Variable, Loop, Conversion,
-    Node, Root, Approval, Cc, Trigger, Concurrent, Condition, Delay, Empty
+    Node, Root, End, Approval, Cc, Trigger, Concurrent, Condition, Delay, Empty
   },
   data() {
     return {
@@ -45,10 +46,6 @@ export default {
     console.log("渲染流程树")
     this.nodeMap.clear()
     let processTrees = this.getDomTree(h, this.dom)
-    //插入末端节点
-    processTrees.push(h('div', {style:{'display': 'flex', 'justify-content': 'center'}}, [
-      h('div', {class:{'process-end': true}, domProps: {innerHTML:'结束'}})
-    ]))
     return h('div', {class:{'_root': true}, ref:'_root'}, processTrees)
   },
   methods: {
@@ -161,7 +158,7 @@ export default {
           || node.type === 'DYNAMIC' || node.type === 'STRING'
           || node.type === 'XML' || node.type === 'JSON'
           || node.type === 'VARIABLE'
-          || node.type === 'CONVERSION'
+          || node.type === 'CONVERSION' || node.type === 'END'
           ||  node.type === 'ROOT' || node.type === 'APPROVAL'
           || node.type === 'CC' || node.type === 'DELAY'
               || node.type === 'TRIGGER');
@@ -488,24 +485,7 @@ export default {
 ._root{
  margin: 0 auto;
 }
-.process-end{
-  // width: 60px;
-  // margin: 0 auto;
-  // margin-bottom: 20px;
-  // border-radius: 15px;
-  // padding: 5px 10px;
-  // font-size: small;
-  // color: #747474;
-  // background-color: #f2f2f2;
-  // box-shadow: 0 0 10px 0 #bcbcbc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid red;
-}
+
 .primary-node{
   display: flex;
   align-items: center;

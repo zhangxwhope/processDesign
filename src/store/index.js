@@ -21,7 +21,14 @@ export default new Vuex.Store({
         props:{
           
         }, //节点属性，见下方props说明
-        children: {}, //子节点项，内部字段与当前结构相同，为条件/并行 节点的组合末端节点
+        children: {
+          id: 'end',
+          parentId: 'root',
+          type: 'END',
+          name: '结束',
+          props: {},
+          children: {}
+        }, //子节点项，内部字段与当前结构相同，为条件/并行 节点的组合末端节点
       }
     },
   },
